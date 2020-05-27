@@ -17,9 +17,8 @@ const HeaderContainer = styled.div`
 
 const HeaderImage = styled.img`
   width: 125px;
-  height: 125px;
+  height: auto;
   margin-right: 15px;
-  object-fit: cover;
   margin-bottom: 0;
 `;
 
