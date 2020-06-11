@@ -3,55 +3,42 @@ import React from "react"
 import styled from 'styled-components'
 
 const StyledHeader = styled.div`
-  background: #3C3B6E;
-  margin-bottom: 1.45rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  background: white;
+  display: flex;
+  justify-content: center;
+  align-items: end;
 `;
 
-const HeaderContainer = styled.div`
-  margin: 0 auto;
-  max-width: 960px;
-  padding: 1.45rem 0;
+const Menu = styled.nav`
   display: flex;
+  justify-content: space-between;
   align-items: center;
+  padding: 10px 0 55px 0;
+  width: 100%;
+`;
+
+const MenuItem = styled(Link)`
+  font-family: Verdana;
+  font-size: 16px;
+  color: black;
+  font-weight: bold;
+  transition: 0.2s ease;
+  text-decoration: none;
+
+  &:hover {
+    color: gray;
+  }
 `;
 
 const HeaderImage = styled.img`
-  width: 125px;
-  height: auto;
-  margin-right: 15px;
-  margin-bottom: 0;
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  margin: 50px 15px 25px 15px;
 `;
 
-const HeaderText = styled(Link)`
-  font-family: 'Fjalla One', sans-serif;
-  font-size: 36px;
-  color: white;
-  text-decoration: none;
-  margin: 0;
-  transition: 0.2s ease;
-
-  &:hover {
-    color: #0067a6;
-  }
-`;
-
-const MenuContainer = styled.div`
-  margin-left: auto;
-  display: flex;
-`;
-
-const MenuLink = styled(Link)`
-  font-size: 16px;
-  font-family: Verdana, sans-serif;
-  color: white;
-  text-decoration: none;
-  transition: 0.2s ease;
-  margin: 0 5px;
-
-  &:hover {
-    text-decoration: underline;
-  }
-`;
 
 const Header = () => (
   <StaticQuery query={graphql`
@@ -82,18 +69,23 @@ const Header = () => (
       }  
   `} render={data => (
     <StyledHeader>
-    <HeaderContainer>
-      <HeaderImage src={data.logo.edges[0].node.source_url} alt={data.logo.edges[0].node.alt_text} />
-      <HeaderText>Lift Chuch</HeaderText>
 
-      <MenuContainer>
-        <MenuLink to={"/"}>Home</MenuLink>
-        {data.menu.edges[0].node.items.map(itemLink => {
-          return <MenuLink to={itemLink.object_slug}>{itemLink.title}</MenuLink>
+      <Menu>
+        <MenuItem to="/">Home</MenuItem>
+        {data.menu.edges[0].node.items.slice(0, 2).map(l => {
+          return <MenuItem key={l.title} to={l.object_slug}>{ l.title }</MenuItem>
         })}
-      </MenuContainer>
-    </HeaderContainer>
-  </StyledHeader>
+      </Menu>
+
+        <HeaderImage src={data.logo.edges[0].node.source_url} alt={data.logo.edges[0].node.alt_text} />
+
+      <Menu>
+        {data.menu.edges[0].node.items.slice(2, 5).map(l => {
+          return <MenuItem key={l.title} to={l.object_slug}>{ l.title }</MenuItem>
+        })}
+      </Menu>
+      
+    </StyledHeader>
   )} />
 )
 

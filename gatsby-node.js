@@ -65,7 +65,8 @@ exports.createPages = async ({ graphql, actions }) => {
       component: slash(pageTemplate),
       context: {
           title: edge.node.title,
-          content: edge.node.content
+          content: edge.node.content,
+          path: edge.node.path
       }
     })
   })
