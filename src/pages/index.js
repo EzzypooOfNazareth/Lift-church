@@ -14,12 +14,10 @@ const TitleText = styled.h1`
 `
 
 const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <CarouselComponent />
-    <TitleText>LIFT Church</TitleText>
-
-  </Layout>
+  useEffect(() => {
+    navigate('https://www.lift-church.com');
+  }, []);
+  return null;
 )
 
 export default IndexPage
